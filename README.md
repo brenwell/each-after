@@ -10,9 +10,13 @@ npm install each-after
 
 ## Usage
 
+EachAfter has a rather standard and simple api
+
 ### Module
 
-```
+EachAfter support common.js and es6-modules
+
+```js
 // common.js
 const eachAfter = require('each-after')()
 
