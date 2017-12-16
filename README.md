@@ -1,6 +1,6 @@
 # each-after
 
-A timing library for iterating through array's with an interval between each. It was intended for using with games when you need stepped animations for multiple elements. E.g. animating a grid of elements to create a visual pattern. It also offers the ability to immediately **stop** or **kill** a current iteration.
+A library for **looping** through as array with a **delay** between each iteration. It was intended for usage with animations, for situations when multiple elements need to have their behaviour stepped. E.g. animating a grid of elements to create a visual pattern. It also offers the ability to immediately **stop** or **kill** a current iteration.
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install each-after
 
 ## Usage
 
-**each-after** support common.js and es6-modules
+**each-after** supports common.js and es6-modules
 
 ```js
 // common.js
