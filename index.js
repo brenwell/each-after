@@ -6,37 +6,26 @@
  * timerInstance.kill()
  * timerInstance.setInterval()
  */
-const eachAfter = (setTimerFunc,clearTimerFunc) =>
+const eachAfter = (timers) =>
 {
-    // set the set timer function
-    let makeTimer
+    let {setTimer, clearTimer} = timers
 
-    // use the given func
-    if (setTimerFunc)
+    if ((setTimer && !clearTimer) || (!setTimer && clearTimer))
     {
-        makeTimer = setTimerFunc
+        throw (new Error('Both setTimer & clearTimer must be set, or neither'));
     }
 
     // fallback to setTimeout
-    else
+    if (!setTimer)
     {
-        makeTimer = (fn,interv) =>
+        setTimer = (fn,interv) =>
         {
             return setTimeout(fn, interv*1000);
         }
     }
 
-    // set the clear timer function
-    let clearTimer
-
-    // use the given func
-    if (clearTimerFunc)
-    {
-        clearTimer = clearTimerFunc
-    }
-
     // fallback to clearTimeout
-    else
+    if (!clearTimer)
     {
         clearTimer = (timerId) =>
         {
@@ -86,7 +75,7 @@ const eachAfter = (setTimerFunc,clearTimerFunc) =>
             if (newInterval > 0)
             {
                 interval = newInterval
-                timerId = makeTimer(next, interval);
+                timerId = setTimer(next, interval);
             }
             else if (newInterval === 0)
             {
@@ -128,7 +117,7 @@ const eachAfter = (setTimerFunc,clearTimerFunc) =>
             // recurse with delay
             if (interval > 0)
             {
-                return makeTimer(next, interval);
+                return setTimer(next, interval);
             }
 
             // or immediate
@@ -136,7 +125,7 @@ const eachAfter = (setTimerFunc,clearTimerFunc) =>
         }
 
         // get initial timer and kick things off
-        timerId =  (instant) ? loop() : makeTimer(loop, interval);
+        timerId =  (instant) ? loop() : setTimer(loop, interval);
 
         // return the timerObject
         return { setInterval, stop, kill, interval };

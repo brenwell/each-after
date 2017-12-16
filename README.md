@@ -10,11 +10,7 @@ npm install each-after
 
 ## Usage
 
-EachAfter has a rather standard and simple api
-
-### Module
-
-EachAfter support common.js and es6-modules
+**each-after** support common.js and es6-modules
 
 ```js
 // common.js
@@ -66,6 +62,10 @@ const timerInstance = eachAfter(
 )
 ```
 
+## Methods
+
+Additional methods for manipulating the timer during iteration.
+
 ### SetInterval
 
 The interval can be changed at any time during iteration. Calling `timerInstance.setInterval(0)` with value of 0 will cause the iterations to happen in the same stack via a standard loop
@@ -96,4 +96,15 @@ const timerInstance = eachAfter([2,4,9,16],1,onEach)
 timerInstance.kill()
 ```
 
+## Alternate timeout methods
 
+By default **each-after** uses `setTimeout` and `clearTimeout` to perform the delays. If you would prefer to use your own methds you can pass them on creation.
+
+```js
+import eachAfterTimer from 'each-after'
+const eachAfter = eachAfterTimer({
+    setTimer: (func, seconds) => { /*... your set timeout function */ },
+    clearTimer: (timerId) => { /*... your clear timeout function */ },
+})
+
+```
