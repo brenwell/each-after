@@ -2,7 +2,7 @@
   "name": "each-after",
   "version": "1.0.0",
   "description": "\"for iterating through array's with an interval between each call\"",
-  "main": "index.js",
+  "main": "lib.js",
   "directories": {
     "test": "test"
   },

@@ -1,7 +1,6 @@
 const sinon = require('sinon')
 const assert = require('chai').assert
-const eachAfter = require('../lib.js').default
-const myTimer = eachAfter()
+const eachAfter = require('../lib.js').default()
 
 const array = [2,4,9,16,25]
 
@@ -10,7 +9,7 @@ describe('Creation', () => {
     it('Should create a timer object', () => {
         const onEachHandler = () => {}
         const onCompleteHandler = () => {}
-        const timerInstance = myTimer([],1,onEachHandler,onCompleteHandler)
+        const timerInstance = eachAfter([],1,onEachHandler,onCompleteHandler)
         assert.isObject(timerInstance)
         assert.property(timerInstance, 'stop')
         assert.property(timerInstance, 'kill')
@@ -26,7 +25,7 @@ describe('Handlers', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler)
         clock.runAll();
         sinon.assert.callCount(onEachHandler, array.length)
         sinon.assert.calledOnce(onCompleteHandler)
@@ -36,7 +35,7 @@ describe('Handlers', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler)
         sinon.assert.calledOnce(onEachHandler)
         clock.runAll();
         sinon.assert.calledOnce(onCompleteHandler)
@@ -46,7 +45,7 @@ describe('Handlers', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler, false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler, false)
         sinon.assert.notCalled(onEachHandler)
         clock.runAll();
         sinon.assert.calledOnce(onCompleteHandler)
@@ -56,7 +55,7 @@ describe('Handlers', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler)
         sinon.assert.calledWith(onEachHandler, 2, 0, [2], 1);
         clock.next()
         sinon.assert.calledWith(onEachHandler, 4, 1, [2,4], 1);
@@ -73,7 +72,7 @@ describe('Handlers', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler, false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler, false)
         clock.next()
         sinon.assert.calledWith(onEachHandler, 2, 0, [2], 1);
         clock.next()
@@ -95,7 +94,7 @@ describe('Kill', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,true)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,true)
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
         timerInstance.kill();
@@ -108,7 +107,7 @@ describe('Kill', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,false)
         clock.next();
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
@@ -126,7 +125,7 @@ describe('Stop', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,false)
         clock.next();
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
@@ -140,7 +139,7 @@ describe('Stop', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,true)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,true)
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
         timerInstance.stop();
@@ -156,7 +155,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler)
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
         timerInstance.setInterval(0);
@@ -168,7 +167,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,false)
         clock.next();
         clock.next();
         sinon.assert.calledTwice(onEachHandler)
@@ -181,7 +180,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,true)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,true)
         timerInstance.setInterval(10);
         clock.tick(5000);
         sinon.assert.calledOnce(onEachHandler)
@@ -192,7 +191,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,false)
         timerInstance.setInterval(10);
         clock.tick(5000);
         sinon.assert.notCalled(onEachHandler)
@@ -203,7 +202,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,true)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,true)
         timerInstance.setInterval(0.01);
         clock.tick(1000);
         sinon.assert.callCount(onEachHandler,5)
@@ -214,7 +213,7 @@ describe('SetInterval', () => {
         const clock = sinon.useFakeTimers();
         const onEachHandler = sinon.spy();
         const onCompleteHandler = sinon.spy();
-        const timerInstance = myTimer(array,1,onEachHandler,onCompleteHandler,false)
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,false)
         timerInstance.setInterval(0.01);
         clock.tick(1000);
         sinon.assert.callCount(onEachHandler,5)

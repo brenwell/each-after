@@ -10,14 +10,25 @@ npm install each-after
 
 ## Usage
 
+### Module
+
+```
+// common.js
+const eachAfter = require('each-after')()
+
+// es6
+import eachAfterTimer from 'each-after'
+const eachAfter = eachAfterTimer()
+
+```
+
+
 ### Simple example
 
-Below is the basic usage
+Below is the most basic usage
 
 ```js
-const eachAfter = require('eachAfter')
-const myTimer = eachAfter()
-const timerInstance = myTimer(
+const timerInstance = eachAfter(
     [2,4,9,16],     // an array to iterate over
     1,              // seconds between each iteration
     onEach          // function to call on each iteration
@@ -26,19 +37,23 @@ const timerInstance = myTimer(
 
 ### On completion
 
+Optionally you can pass a function as the 4th parameter for handling the completion of the loop
+
 ```js
-const timerInstance = myTimer(
+const timerInstance = eachAfter(
     [2,4,9,16],
     1,
     onEach
-    onComplete      // function to call at the end of the iteration
+    onComplete      // (Optional) function to call at the end of the iteration
 )
 ```
 
 ### Prevent instantly firing first iteration
 
+By default the first iteration is called immediately and then the remaining iterations are delayed, to prevent this behaviour you can pass `false` as the 5th parameter
+
 ```js
-const timerInstance = myTimer(
+const timerInstance = eachAfter(
     [2,4,9,16],
     1,
     onEach
@@ -52,7 +67,7 @@ const timerInstance = myTimer(
 The interval can be changed at any time during iteration. Calling `timerInstance.setInterval(0)` with value of 0 will cause the iterations to happen in the same stack via a standard loop
 
 ```js
-const timerInstance = myTimer([2,4,9,16],1,onEach)
+const timerInstance = eachAfter([2,4,9,16],1,onEach)
 
 timerInstance.setInterval(10) // seconds
 ```
@@ -62,7 +77,7 @@ timerInstance.setInterval(10) // seconds
 Iteration can be stopped by calling `stop` and it will trigger all the iterations immediately, including the completionHandler, avoiding using the timer function. This method is essentially the same as `timerInstance.setInterval(0)`.
 
 ```js
-const timerInstance = myTimer([2,4,9,16],1,onEach)
+const timerInstance = eachAfter([2,4,9,16],1,onEach)
 
 timerInstance.stop()
 ```
@@ -72,7 +87,7 @@ timerInstance.stop()
 Iteration can be completely killed, which will prevent any remaing handlers, including the completionHandler, from being fired
 
 ```js
-const timerInstance = myTimer([2,4,9,16],1,onEach)
+const timerInstance = eachAfter([2,4,9,16],1,onEach)
 
 timerInstance.kill()
 ```
