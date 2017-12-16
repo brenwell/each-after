@@ -8,30 +8,22 @@
  */
 const eachAfter = (timers) =>
 {
-    let {setTimer, clearTimer} = timers
-
-    if ((setTimer && !clearTimer) || (!setTimer && clearTimer))
+    // Must set both timers
+    if (timers && ((setTimer && !clearTimer) || (!setTimer && clearTimer)))
     {
-        throw (new Error('Both setTimer & clearTimer must be set, or neither'));
+        throw (new Error("Both setTimer & clearTimer must be set, or neither"));
     }
 
-    // fallback to setTimeout
-    if (!setTimer)
-    {
-        setTimer = (fn,interv) =>
-        {
-            return setTimeout(fn, interv*1000);
-        }
-    }
+    // Set the correct timer
+    const setTimer = (timers && timers.setTimer)
+        ? timers.setTimer
+        : (fn,interv) =>
+            setTimeout(fn, interv*1000);
 
-    // fallback to clearTimeout
-    if (!clearTimer)
-    {
-        clearTimer = (timerId) =>
-        {
-            return clearTimeout(timerId)
-        }
-    }
+    const clearTimer = (timers && timers.clearTimer)
+        ? timers.clearTimer
+        : (timerId) =>
+            clearTimeout(timerId);
 
     /**
      * Iterates an array with a given interval between each
