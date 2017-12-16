@@ -1,0 +1,42 @@
+{
+  "name": "each-after",
+  "version": "1.0.0",
+  "description": "\"for iterating through array's with an interval between each call\"",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "npm run build && npm test",
+    "build": "babel index.js --out-file lib.js --source-maps inline",
+    "test": "mocha",
+    "lint": "eslint index.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brenwell/each-after.git"
+  },
+  "keywords": [
+    "iteration",
+    "loop",
+    "array",
+    "delay",
+    "stop",
+    "kill"
+  ],
+  "author": "Brendon Blackwell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brenwell/each-after/issues"
+  },
+  "homepage": "https://github.com/brenwell/each-after#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.35",
+    "@babel/core": "^7.0.0-beta.35",
+    "@babel/preset-env": "^7.0.0-beta.35",
+    "chai": "^4.1.2",
+    "eslint": "^4.13.1",
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3"
+  }
+}
