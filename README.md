@@ -1,5 +1,7 @@
 # each-after
 
+Process **each** element **after** n seconds
+
 A library for **looping** through an array with a **delay** between each iteration. It was intended for usage with animations, for situations when multiple elements need to have their behaviour stepped. E.g. animating a grid of elements to create a visual pattern. It also offers the ability to immediately **stop** or **kill** a current iteration.
 
 ## Install
