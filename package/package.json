@@ -1,6 +1,6 @@
 {
   "name": "each-after",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Iterate through an array with an interval between each call. Stop & kill iteration.",
   "main": "lib.js",
   "directories": {
@@ -10,8 +10,7 @@
     "start": "npm run build && npm test",
     "build": "babel index.js --out-file lib.js --source-maps inline",
     "test": "mocha",
-    "lint": "eslint index.js --fix",
-    "prepublish": "npm start"
+    "lint": "eslint index.js --fix"
   },
   "repository": {
     "type": "git",

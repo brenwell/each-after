@@ -1,6 +1,7 @@
 const sinon = require('sinon')
 const assert = require('chai').assert
 const eachAfter = require('../lib.js').default()
+
 const array = [2,4,9,16,25]
 
 describe('Creation', () => {
@@ -14,30 +15,6 @@ describe('Creation', () => {
         assert.property(timerInstance, 'kill')
         assert.property(timerInstance, 'setInterval')
         assert.property(timerInstance, 'interval')
-    });
-
-    it('Should create a timer object with custom timers', () => {
-
-        const setTimer = sinon.spy(() => { return 'custom' })
-        const clearTimer = sinon.spy()
-
-        const timers = {
-            setTimer,
-            clearTimer,
-        }
-
-        const eachAfterCustom = require('../lib.js').default(timers)
-
-        const onEachHandler = () => {}
-        const onCompleteHandler = () => {}
-        const timerInstance = eachAfterCustom([],1,onEachHandler,onCompleteHandler)
-        assert.isObject(timerInstance)
-
-        sinon.assert.calledOnce(setTimer)
-        sinon.assert.notCalled(clearTimer)
-        timerInstance.stop()
-        sinon.assert.calledOnce(clearTimer)
-        sinon.assert.calledWith(clearTimer, 'custom')
     });
 
 });
