@@ -31,7 +31,34 @@ Below is the most basic usage
 const timerInstance = eachAfter(
     [2,4,9,16],     // an array to iterate over
     1,              // seconds between each iteration
-    onEach          // function to call on each iteration
+    function(){}    // function to call on each iteration
+)
+```
+
+### On each
+
+You must pass a function as the 3rd parameter for handling the each iteration of the loop
+
+**element** - The current element being processed in the array.
+**index** - The index of the current element being processed in the array
+**processed** - The array of all the elements processed so far
+**interval** - The time in seconds since the last element was processed
+
+```js
+const onEach = (element, index, processed, interval) = {
+    console.log(element, index, processed, interval)
+
+    // Would fire 4 times with the following results
+    // 2, 0, [2], 1
+    // 4, 1, [2,4], 1
+    // 9, 2, [2,4,9], 1
+    // 16, 3, [2,4,9,16], 1
+}
+
+const timerInstance = eachAfter(
+    [2,4,9,16],
+    1,
+    onEach
 )
 ```
 
@@ -40,6 +67,10 @@ const timerInstance = eachAfter(
 Optionally you can pass a function as the 4th parameter for handling the completion of the loop
 
 ```js
+const onComplete = (finalArray) = {
+    console.log(finalArray) // [2,4,9,16]
+}
+
 const timerInstance = eachAfter(
     [2,4,9,16],
     1,
@@ -66,7 +97,7 @@ const timerInstance = eachAfter(
 
 Additional methods for manipulating the timer during iteration.
 
-### SetInterval
+### Set interval
 
 The interval can be changed at any time during iteration. Calling `timerInstance.setInterval(0)` with value of 0 will cause the iterations to happen in the same stack via a standard loop
 
@@ -102,6 +133,7 @@ By default **each-after** uses `setTimeout` and `clearTimeout` to perform the de
 
 ```js
 import eachAfterTimer from 'each-after'
+
 const eachAfter = eachAfterTimer({
     setTimer: (func, seconds) => { /*... your set timeout function */ },
     clearTimer: (timerId) => { /*... your clear timeout function */ },
