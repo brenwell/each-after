@@ -16,16 +16,17 @@ npm install each-after
 
 **each-after** supports common.js and es6-modules
 
+**common.js**
+
 ```js
-// common.js
 const eachAfter = require('each-after')()
-
-// es6
-import eachAfterTimer from 'each-after'
-const eachAfter = eachAfterTimer()
-
 ```
 
+```js
+**es6 modules**
+import eachAfterTimer from 'each-after'
+const eachAfter = eachAfterTimer()
+```
 
 ### Simple example
 
