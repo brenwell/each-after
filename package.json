@@ -8,10 +8,10 @@
   },
   "scripts": {
     "start": "npm run build && npm test",
-    "build": "babel index.js --out-file lib.js --source-maps inline",
+    "build": "babel index.js --out-file each-after.js --source-maps inline",
     "test": "mocha",
     "lint": "eslint index.js --fix",
-    "prepublish": "npm start"
+    "prepublishOnly": "npm start"
   },
   "repository": {
     "type": "git",

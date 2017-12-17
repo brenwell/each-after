@@ -1,6 +1,6 @@
 const sinon = require('sinon')
 const assert = require('chai').assert
-const eachAfter = require('../lib.js').default()
+const eachAfter = require('../each-after.js').default()
 const array = [2,4,9,16,25]
 
 describe('Creation', () => {
