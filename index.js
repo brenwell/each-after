@@ -9,19 +9,19 @@
 const eachAfter = (timers) =>
 {
     // Must set both timers
-    if (timers && ((setTimer && !clearTimer) || (!setTimer && clearTimer)))
+    if (timers && ((timers.set && !timers.clear) || (!timers.set && timers.clear)))
     {
         throw (new Error("Both setTimer & clearTimer must be set, or neither"));
     }
 
     // Set the correct timer
-    const setTimer = (timers && timers.setTimer)
-        ? timers.setTimer
-        : (fn,interv) =>
-            setTimeout(fn, interv*1000);
+    const setTimer = (timers && timers.set)
+        ? timers.set
+        : (secs, func) =>
+            setTimeout(func, secs*1000);
 
-    const clearTimer = (timers && timers.clearTimer)
-        ? timers.clearTimer
+    const clearTimer = (timers && timers.clear)
+        ? timers.clear
         : (timerId) =>
             clearTimeout(timerId);
 
@@ -67,7 +67,7 @@ const eachAfter = (timers) =>
             if (newInterval > 0)
             {
                 interval = newInterval
-                timerId = setTimer(next, interval);
+                timerId = setTimer(interval, next);
             }
             else if (newInterval === 0)
             {
@@ -109,7 +109,7 @@ const eachAfter = (timers) =>
             // recurse with delay
             if (interval > 0)
             {
-                return setTimer(next, interval);
+                return setTimer(interval, next);
             }
 
             // or immediate
@@ -117,7 +117,7 @@ const eachAfter = (timers) =>
         }
 
         // get initial timer and kick things off
-        timerId =  (instant) ? loop() : setTimer(loop, interval);
+        timerId =  (instant) ? loop() : setTimer(interval, loop);
 
         // return the timerObject
         return { setInterval, stop, kill, interval };

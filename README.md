@@ -137,8 +137,8 @@ By default **each-after** uses `setTimeout` and `clearTimeout` to perform the de
 import eachAfterTimer from 'each-after'
 
 const eachAfter = eachAfterTimer({
-    setTimer: (func, seconds) => { /*... your set timeout function */ },
-    clearTimer: (timerId) => { /*... your clear timeout function */ },
+    set: (seconds, func) => { /*... your set timeout function */ },
+    clear: (timerId) => { /*... your clear timeout function */ },
 })
 
 ```

@@ -23,8 +23,8 @@ describe('Creation', () => {
         const clearTimer = sinon.spy()
 
         const timers = {
-            setTimer,
-            clearTimer,
+            set: setTimer,
+            clear: clearTimer
         }
 
         const eachAfterCustom = eachAfterCreate(timers)
