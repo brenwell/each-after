@@ -1,6 +1,7 @@
 const sinon = require('sinon')
 const assert = require('chai').assert
-const eachAfter = require('../each-after.js').default()
+const eachAfterCreate = require('../each-after.js').default
+const eachAfter = eachAfterCreate()
 const array = [2,4,9,16,25]
 
 describe('Creation', () => {
@@ -26,7 +27,7 @@ describe('Creation', () => {
             clearTimer,
         }
 
-        const eachAfterCustom = require('../lib.js').default(timers)
+        const eachAfterCustom = eachAfterCreate(timers)
 
         const onEachHandler = () => {}
         const onCompleteHandler = () => {}
