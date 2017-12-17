@@ -4,6 +4,8 @@ Process **each** element **after** n seconds
 
 A library for **looping** through an array with a **delay** between each iteration. It was intended for usage with animations, for situations when multiple elements need to have their behaviour stepped. E.g. animating a grid of elements to create a visual pattern. It also offers the ability to immediately **stop** or **kill** a current iteration.
 
+Works great with [pixi-timeout](https://github.com/brenwell/pixi-timeout)
+
 ## Install
 
 ```shell
@@ -77,7 +79,7 @@ const timerInstance = eachAfter(
     [2,4,9,16],
     1,
     onEach
-    onComplete      // (Optional) function to call at the end of the iteration
+    onComplete // (Optional) function to call at the end of the iteration
 )
 ```
 
@@ -91,7 +93,7 @@ const timerInstance = eachAfter(
     1,
     onEach
     onComplete
-    false,          // (Optional) default = true
+    false,   // (Optional) default = true
 )
 ```
 
@@ -141,4 +143,17 @@ const eachAfter = eachAfterTimer({
     clear: (timerId) => { /*... your clear timeout function */ },
 })
 
+```
+
+### Pixi-Timeout
+Here is an example of using custom timeout methods. It uses [pixi-timeout](https://github.com/brenwell/pixi-timeout) `requestAnimationFrame` based timing functions, which additionally allow for pausing & resuming the timers via the `PIXI.Application.stop` and `PIXI.Application.start` methods
+
+```js
+import pix from ‘pixi,js’
+import pixiTimeout from 'pixi-timeout'
+import EachAfterCreate from 'each-after'
+window.eachAfter = EachAfterCreate({
+    set:PIXI.setTimeout,
+    clear:PIXI.clearTimeout
+})
 ```

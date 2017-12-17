@@ -1,17 +1,20 @@
 {
   "name": "each-after",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Iterate through an array with an interval between each call. Stop & kill iteration.",
-  "main": "each-after.js",
+  "main": "lib/each-after.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "start": "npm run build && npm test",
-    "build": "babel index.js --out-file each-after.js --source-maps inline",
-    "test": "mocha",
+    "lib": "npm run build && npm run min",
+    "build": "babel index.js -o ./lib/each-after.js -s inline",
+    "min": "minify index.js -o ./lib/each-after.min.js",
+    "test": "npm run unit && npm run lint",
+    "unit": "mocha",
     "lint": "eslint index.js --fix",
-    "prepublishOnly": "npm start"
+    "prepublishOnly": "npm run lib && npm test"
   },
   "repository": {
     "type": "git",
@@ -35,6 +38,7 @@
     "@babel/cli": "^7.0.0-beta.35",
     "@babel/core": "^7.0.0-beta.35",
     "@babel/preset-env": "^7.0.0-beta.35",
+    "babel-minify": "^0.2.0",
     "chai": "^4.1.2",
     "eslint": "^4.13.1",
     "mocha": "^4.0.1",
