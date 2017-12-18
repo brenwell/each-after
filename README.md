@@ -22,8 +22,9 @@ npm install each-after
 const eachAfter = require('each-after')()
 ```
 
-```js
 **es6 modules**
+
+```js
 import eachAfterTimer from 'each-after'
 const eachAfter = eachAfterTimer()
 ```
