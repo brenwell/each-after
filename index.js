@@ -107,7 +107,7 @@ const eachAfter = (timers) =>
             progressArray.push(element);
 
             // fire the onEachHandler
-            onEach(element, progressArray.length - 1, progressArray, interval);
+            onEach(element, progressArray.length - 1, progressArray, interval, stopped);
 
             // recurse with delay
             if (interval > 0)
