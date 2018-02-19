@@ -38,8 +38,10 @@ const eachAfter = (timers) =>
     function loopWithDelay(elements, interval, onEach, onComplete, instant=true)
     {
         let timerId = null;
+        let stopped = false;
         const array = Array.from(elements)
         const progressArray = [];
+
 
         /**
          * Move to the next element in tha array
@@ -48,7 +50,7 @@ const eachAfter = (timers) =>
         {
             if (!array.length)
             {
-                if (onComplete) onComplete(progressArray);
+                if (onComplete) onComplete(progressArray, stopped);
                 return
             }
 
@@ -81,6 +83,7 @@ const eachAfter = (timers) =>
          */
         function stop()
         {
+            stopped = true
             setInterval(0)
         }
 

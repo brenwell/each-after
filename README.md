@@ -73,8 +73,9 @@ const timerInstance = eachAfter(
 Optionally you can pass a function as the 4th parameter for handling the completion of the loop
 
 ```js
-const onComplete = (finalArray) = {
+const onComplete = (finalArray, wasStopped) = {
     console.log(finalArray) // [2,4,9,16]
+    console.log(wasStopped) // whether the timer was stopped via the `.stop()` method
 }
 
 const timerInstance = eachAfter(
