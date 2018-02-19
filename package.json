@@ -1,6 +1,6 @@
 {
   "name": "each-after",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Iterate through an array with an interval between each call. Stop & kill iteration.",
   "main": "lib/each-after.js",
   "directories": {
