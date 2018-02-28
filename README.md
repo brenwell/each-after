@@ -45,11 +45,11 @@ const timerInstance = eachAfter(
 
 You must pass a function as the 3rd parameter for handling the each iteration of the loop
 
-**element** - The current element being processed in the array.
-**index** - The index of the current element being processed in the array
-**processed** - The array of all the elements processed so far
-**interval** - The time in seconds since the last element was processed
-**wasStopped** - Whether the iteration was stoppped manually via `.stop()`
+* **element** - The current element being processed in the array.
+* **index** - The index of the current element being processed in the array
+* **processed** - The array of all the elements processed so far
+* **interval** - The time in seconds since the last element was processed
+* **wasStopped** - Whether the iteration was stoppped manually via `.stop()`
 
 ```js
 const onEach = (element, index, processed, interval, wasStopped) = {
