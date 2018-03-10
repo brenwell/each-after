@@ -7,7 +7,8 @@ pipeline:
       - npm build
       - npm test
 
-
+  npm:
+    image: plugins/npm
 
   slack:
     image: plugins/slack
