@@ -11,6 +11,7 @@ pipeline:
     image: plugins/npm
     username: brenwell
     password: t8/%Nq297vqe,KreV,zhutPJMwYGY8p42W&#VJ(E7d3+CDW?3/
+    email: brendon@brenwell.com
 
   slack:
     image: plugins/slack
