@@ -18,12 +18,16 @@ const eachAfter = (timers) =>
     const setTimer = (timers && timers.set)
         ? timers.set
         : (secs, func) =>
-            setTimeout(func, secs*1000);
+        {
+            return setTimeout(func, secs*1000);
+        }
 
     const clearTimer = (timers && timers.clear)
         ? timers.clear
         : (timerId) =>
-            clearTimeout(timerId);
+        {
+            clearTimeout(timerId)
+        }
 
     /**
      * Iterates an array with a given interval between each
@@ -49,14 +53,29 @@ const eachAfter = (timers) =>
          */
         function next()
         {
-            if (!array.length)
+            // get next element
+            const element = array.shift();
+
+            if (!element)
             {
-                if (onComplete) onComplete(progressArray, isUserStopped);
+                if (onComplete && !isCompleted)
+                {
+                    onComplete(progressArray, isUserStopped);
+                }
+
                 isCompleted = true
                 return
             }
 
-            timerId =  loop();
+            loop(element);
+        }
+
+        /**
+         * wrapper to make sure timerId is stored
+         */
+        function doAfter()
+        {
+            timerId = setTimer(interval, next);
         }
 
         /**
@@ -66,12 +85,14 @@ const eachAfter = (timers) =>
          */
         function setInterval(newInterval)
         {
-            kill()
+            if (isCompleted) return
+
+            clearTimer(timerId)
 
             if (newInterval > 0)
             {
                 interval = newInterval
-                timerId = setTimer(interval, next);
+                doAfter();
             }
             else if (newInterval === 0)
             {
@@ -102,11 +123,8 @@ const eachAfter = (timers) =>
         /**
          * The delayed loop
          */
-        function loop()
+        function loop(element)
         {
-            // get next element
-            const element = array.shift();
-
             // append to progress
             progressArray.push(element);
 
@@ -116,15 +134,26 @@ const eachAfter = (timers) =>
             // recurse with delay
             if (interval > 0)
             {
-                return setTimer(interval, next);
+                doAfter();
             }
 
             // or immediate
-            return next()
+            else
+            {
+                timerId = null
+                next()
+            }
         }
 
         // get initial timer and kick things off
-        timerId =  (instant) ? loop() : setTimer(interval, loop);
+        if (instant)
+        {
+            next()
+        }
+        else
+        {
+            doAfter();
+        }
 
         // return the timerObject
         return { setInterval, stop, kill, interval };
