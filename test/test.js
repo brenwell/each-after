@@ -171,6 +171,19 @@ describe('Stop', () => {
         sinon.assert.callCount(onEachHandler,5)
         sinon.assert.called(onCompleteHandler)
     });
+
+    it('Instant: Should call onCompleteHandler once', () => {
+        const clock = sinon.useFakeTimers();
+        const onEachHandler = sinon.spy();
+        const onCompleteHandler = sinon.spy();
+        const timerInstance = eachAfter(array,1,onEachHandler,onCompleteHandler,true)
+
+        clock.runAll();
+        timerInstance.stop();
+
+        sinon.assert.callCount(onEachHandler,5)
+        sinon.assert.calledOnce(onCompleteHandler)
+    });
 });
 
 describe('SetInterval', () => {

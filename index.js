@@ -38,7 +38,8 @@ const eachAfter = (timers) =>
     function loopWithDelay(elements, interval, onEach, onComplete, instant=true)
     {
         let timerId = null;
-        let stopped = false;
+        let isUserStopped = false;
+        let isCompleted = false;
         const array = Array.from(elements)
         const progressArray = [];
 
@@ -50,7 +51,8 @@ const eachAfter = (timers) =>
         {
             if (!array.length)
             {
-                if (onComplete) onComplete(progressArray, stopped);
+                if (onComplete) onComplete(progressArray, isUserStopped);
+                isCompleted = true
                 return
             }
 
@@ -83,7 +85,8 @@ const eachAfter = (timers) =>
          */
         function stop()
         {
-            stopped = true
+            if (isCompleted) return
+            isUserStopped = true
             setInterval(0)
         }
 
@@ -92,6 +95,7 @@ const eachAfter = (timers) =>
          */
         function kill()
         {
+            if (isCompleted) return
             clearTimer(timerId)
         }
 
@@ -107,7 +111,7 @@ const eachAfter = (timers) =>
             progressArray.push(element);
 
             // fire the onEachHandler
-            onEach(element, progressArray.length - 1, progressArray, interval, stopped);
+            onEach(element, progressArray.length - 1, progressArray, interval, isUserStopped);
 
             // recurse with delay
             if (interval > 0)

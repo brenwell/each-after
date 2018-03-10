@@ -1,0 +1,21 @@
+---
+pipeline:
+  build:
+    image: node:8
+    commands:
+      - npm install
+      - npm build
+      - npm test
+
+  slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    channel: private
+    when:
+      status: [ success, failure ]
+    template: >
+      {{#success build.status}}
+        Successfully built {{repo.name}} - {{build.branch}}. {{build.link}}
+      {{else}}
+       Failed to build {{repo.name}} - {{build.branch}}. {{build.link}}
+      {{/success}}
