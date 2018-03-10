@@ -1,0 +1,9 @@
+.drone.yml
+
+.DS_Store
+/node_modules
+.tmp/
+.idea/
+*.orig
+/*.log
+/*.sublime-workspace
