@@ -117,7 +117,7 @@ timerInstance.setInterval(10) // seconds
 
 ### Stop
 
-Iteration can be stopped by calling `stop` and it will trigger all the iterations immediately, including the completionHandler, avoiding using the timer function. This method is essentially the same as `timerInstance.setInterval(0)`. The state of the iteration can be checked via the `onEach` and `onComplete` handlers by checking the `wasStopped` parameter
+Iteration can be stopped by calling `stop` and it will trigger all the iterations immediately, including the completionHandler, avoiding using the timer function. This method is essentially the same as `timerInstance.setInterval(0)`. The state of the iteration can be checked via the `onEach` and `onComplete` handlers by checking the `wasStopped` parameter. Stop can only be called before the iteration is completed to prevent multiple onComplete events.
 
 ```js
 const timerInstance = eachAfter(
