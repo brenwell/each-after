@@ -9,9 +9,7 @@ pipeline:
 
   npm:
     image: plugins/npm
-    username: $NPM_USERNAME
-    password: $NPM_PASSWORD
-    email: $NPM_EMAIL
+    secrets: [ npm_username, npm_password, npm_email ]
 
   slack:
     image: plugins/slack
@@ -25,3 +23,4 @@ pipeline:
       {{else}}
        Failed to build {{repo.name}} - {{build.branch}}. {{build.link}}
       {{/success}}
+
